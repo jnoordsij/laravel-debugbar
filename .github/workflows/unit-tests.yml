@@ -55,9 +55,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer remove --dev --no-update larastan/larastan phpstan/phpstan-phpunit laravel/pint phpstan/phpstan-strict-rules shipmonk/phpstan-rules
-          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
+          composer remove --dev --no-update --ignore-platform-req=php+ larastan/larastan phpstan/phpstan-phpunit laravel/pint phpstan/phpstan-strict-rules shipmonk/phpstan-rules
+          composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --ignore-platform-req=php+
+          composer update --${{ matrix.dependency-version }} --prefer-dist --ignore-platform-req=php+ --no-progress
 
       - name: Update Dusk Chromedriver
         run: vendor/bin/dusk-updater detect --auto-update
