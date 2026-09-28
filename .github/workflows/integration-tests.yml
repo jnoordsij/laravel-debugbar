@@ -43,16 +43,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer create-project --prefer-dist laravel/laravel:${{ matrix.laravel }} --stability=dev --no-progress sample --no-blocking
+          composer create-project --prefer-dist --ignore-platform-req=php+ laravel/laravel:${{ matrix.laravel }} --stability=dev --no-progress sample --no-blocking
           cd sample
           composer config minimum-stability dev
-          composer update --prefer-stable --prefer-dist --no-progress --no-blocking
+          composer update --prefer-stable --prefer-dist --ignore-platform-req=php+ --no-progress --no-blocking
 
       - name: Add package from source
         run: |
           cd sample
           sed -e 's|"type": "project",|&\n"repositories": [ { "type": "path", "url": "../src" } ],|' -i composer.json
-          composer require --dev "fruitcake/laravel-debugbar:*"
+          composer require --dev --ignore-platform-req=php+ "fruitcake/laravel-debugbar:*"
 
       - name: Execute generate run
         run: |
